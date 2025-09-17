@@ -431,6 +431,122 @@ section#brands p {
   text-align: center;
 }
 
+/* Careers Section */
+.careers {
+  padding: 80px 20px;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+.careers h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #0d1b2a;
+}
+
+.careers p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #555;
+}
+
+.career-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.career-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.career-card h3 {
+  margin-bottom: 10px;
+  color: #e76f51;
+}
+
+.career-card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #e9c46a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.career-card button:hover {
+  background: #f4a261;
+}
+
+/* Careers Section */
+.careers {
+  padding: 80px 20px;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+.careers h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #0d1b2a;
+}
+
+.careers p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #555;
+}
+
+.career-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.career-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.career-card h3 {
+  margin-bottom: 10px;
+  color: #e76f51;
+}
+
+.career-card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #e9c46a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:  0.3s ease;
+}
+
+.career-card button:hover {
+  background: #f4a261;
+}
+
+
+
 /* Testimonials Section */
 #testimonials {
   padding: 80px 20px;
