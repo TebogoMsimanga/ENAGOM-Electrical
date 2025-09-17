@@ -28,4 +28,72 @@ Features - Responsive Design that is accessible on desktop and mobile.
 
 On each section i use the ID to navigate to the relevant pages of the website.
 
+Updates with css
+Header 
+- Company logo and navigation bar
+- Hero banner with background image,welcome massage, and call-to action button.
+
+Brands & Partners
+- Grid layout with partner logos for credibility.
+
+Why Choose Us
+- Centered heading and responsive value proposition cards.
+
+Services
+- Highlight cards styled with CSS(hover effect, responsive grid).
+
+Projects 
+- Responsive two-faced card slider for project showcase (pure CSS).
+
+Testimonials
+- Vertical scroll slider showing customer feedback with names and avatars.
+
+Contact Section
+- Split layout: 
+    .Left: embedded map.
+    .Right: contact form + details underneath.
+
+Footer
+- gradient gold-orange top boarder
+- newsletter signup,quick links, contact info, and social media icons.
+
+Features & Styling
+Responsive Design
+- mobile- first with flexible grids & media queries.
+
+Hero Section
+- full width background image with dark overlay for readability.
+
+Project Slider
+- Flip -style two-faced cards without JavaScripts.
+
+Testimonials
+- styles with vertical scroll effects.
+
+Contact Section
+- CSS grid for map & form side by side.
+
+Footer
+- gradient border, clean grid layout, social icons.
+
+Smooth Navigation 
+- section IDs link menu item to page sections.
+
+Technologies Used
+- HTML5 for structure
+- CSS3 for custom responsive design,animations, and layout.
+- (Optional) Google Maps Embed for location
+
+I added  the career section to add more content
+
+Website Structure (updated)
+Careers Section 
+- job listing and opportunities to join ENAGOM Electrical
+
+Features (updated)
+Career Page
+- Highlight job opportunities with responsive cards and "Apply Now" buttons.
+
+
+
 
