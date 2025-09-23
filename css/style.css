@@ -1,7 +1,7 @@
 /* Reset default margins/padding */
 * {
     margin: 0;
-    padding: 10px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
@@ -15,20 +15,19 @@ body {
 /* Header section */
 header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
     background-color: #0d1b2a; /* dark blue */
-    color: #fff;
     position: sticky;
     top: 0;
     z-index: 1000;
+    align-items: center;
+    justify-content: space-around;
 }
 
 /* Logo */
 header .logo {
-    height: 100px;
+    height: 50px;
     width: auto;
+    fill: white;
 }
 
 /* Navigation styling */
@@ -99,6 +98,7 @@ button:hover {
     font-size: 3rem;
     margin-bottom: 20px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    text-transform: uppercase;
 }
 
 /* Hero Subtitle */
@@ -169,7 +169,7 @@ section#brands p {
 /* Brand Logos Grid */
 .brands-logos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 30px;
     align-items: center;
     justify-items: center;
@@ -177,7 +177,7 @@ section#brands p {
 
 .brands-logos img {
     max-width: 120px;
-    max-height: 60px;
+    max-height: 40px;
     object-fit: contain;
     filter: grayscale(100%);
     transition: filter 0.3s ease, transform 0.3s ease;
