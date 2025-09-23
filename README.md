@@ -94,6 +94,10 @@ Features (updated)
 Career Page
 - Highlight job opportunities with responsive cards and "Apply Now" buttons.
 
+update
+- updated the size of the nav bar and added icons to the nav bar
+- added icons to the footer social media links
+- resized and aligned the footer section,
 
 
 
