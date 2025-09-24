@@ -99,5 +99,36 @@ update
 - added icons to the footer social media links
 - resized and aligned the footer section,
 
+ September 2025 – Responsive Design Enhancements
 
+- Implemented responsive styling across all pages using CSS Grid, Flexbox, and media queries (max-width: 1200px, 768px, 480px).
+
+- Converted fixed pixel values to relative units (em, rem, %) for scalable typography and spacing.
+
+- Added responsive Hero section with background image scaling and adaptive text size.
+
+-Updated Services, Projects, and Footer sections to support multi-column layouts on desktop and single-column layouts on mobile.
+
+- Styled Testimonials section with vertical scroll container that adjusts to viewport height.
+
+- Modified Contact section layout → map left, form right, details below on desktop → stacked layout on mobile for usability.
+
+- Added Careers form toggle (Apply button shows form; Cancel/Submit hides it) for cleaner mobile UI.
+
+- Tested responsiveness on desktop, tablet, and mobile using Chrome DevTools (W3C, 2023; Mozilla Developer Network, 2025).
+
+References
+Marcotte, E., 2011. Responsive Web Design. New York: A Book Apart.
+
+W3C, 2023. Media Queries Level 4. [online] W3C. Available at: https://www.w3.org/TR/mediaqueries-4/
+ [Accessed 13 September 2025].
+
+Mozilla Developer Network (MDN), 2025. Responsive design. [online] MDN Web Docs. Available at: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
+ [Accessed 13 September 2025].Marcotte, E., 2011. Responsive Web Design. New York: A Book Apart.
+
+W3C, 2023. Media Queries Level 4. [online] W3C. Available at: https://www.w3.org/TR/mediaqueries-4/
+ [Accessed 13 September 2025].
+
+Mozilla Developer Network (MDN), 2025. Responsive design. [online] MDN Web Docs. Available at: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
+ [Accessed 13 September 2025].
 
