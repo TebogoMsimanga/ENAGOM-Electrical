@@ -19,7 +19,19 @@
   </head>
   <body>
     <!--navigation-->
+    <!-- CSS-only hamburger toggle -->
+    <input type="checkbox" id="nav-toggle" style="display:none;">
     <header>
+      <!-- Hamburger menu toggle button (label for checkbox) -->
+      <label
+        for="nav-toggle"
+        class="mobile-menu-toggle"
+        aria-label="Open navigation"
+        aria-controls="mainNav"
+        aria-expanded="false"
+      >
+        <i class="fas fa-bars"></i>
+      </label>
       <div>
         <img
           class="logo"
@@ -27,19 +39,42 @@
           alt="ENAGOM Electrical Logo"
         />
       </div>
-      <nav>
+      <nav id="mainNav">
         <ul>
           <li>
-            <a href="#home"><i class="fa-solid fa-house-chimney-crack"></i>Home</a>
+            <a href="#home"
+              ><i class="fa-solid fa-house-chimney-crack"></i>Home</a
+            >
           </li>
-          <li><a href="#about "><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-          <li><a href="#services"><i class="fa-solid fa-plug"></i>Services</a></li>
-          <li><a href="#projects"><i class="fa-solid fa-briefcase"></i>Projects</a></li>
-          <li><a href="#testimonials"><i class="fa-solid fa-comments"></i>Testimonials</a></li>
-          <li><a href="#contact"><i class="fa-solid fa-envelope"></i>Contact</a></li>
+          <li>
+            <a href="#about"
+              ><i class="fa-solid fa-circle-info"></i>About Us</a
+            >
+          </li>
+          <li>
+            <a href="#services"
+              ><i class="fa-solid fa-plug"></i>Services</a
+            >
+          </li>
+          <li>
+            <a href="#projects"
+              ><i class="fa-solid fa-briefcase"></i>Projects</a
+            >
+          </li>
+          <li>
+            <a href="#testimonials"
+              ><i class="fa-solid fa-comments"></i>Testimonials</a
+            >
+          </li>
+          <li>
+            <a href="#contact"
+              ><i class="fa-solid fa-envelope"></i>Contact</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
+
     <!--hero section-->
     <div class="hero" id="home">
       <h1>Welcome to ENAGOM Electrical</h1>
@@ -49,21 +84,21 @@
       </p>
       <button class="cta-btn">GET QUOTE</button>
       <!-- <i class='bx  bx-mouse'  ></i>  -->
-      <img src="assets/images/mouse.svg" alt="mouse" />
+      <img src="assets/images/mouse.svg" alt="mouse" class="scroll-icon" />
     </div>
 
     <!--brands section-->
     <section id="brands">
       <div>
         <h1>Our Quality brands</h1>
-        <p>
+        <p class="card-text">
           We partner with leading brands to provide the best solutions for our
           clients.
         </p>
       </div>
       <!--overlay-->
-      <div></div>
-      <div class="brands-logo">
+      <div> </div>
+      <div class="brands-logos">
         <img src="assets/images/samsung.jpg" alt="samsung" />
         <img src="assets/images/eskom.jpg" alt="eskom" />
         <img src="assets/images/bosch logo.jpg" alt="bosch" />
@@ -72,11 +107,12 @@
         <img src="assets/images/defy logo.jpg" alt="Defy" />
       </div>
     </section>
+
     <!-- why choose us-->
     <section id="about">
       <div>
         <h1>Why Choose Us?</h1>
-        <p>Certified electricians with years of experience & 24/7 support</p>
+        <p class="card-text">Certified electricians with years of experience & 24/7 support</p>
       </div>
 
       <div class="reasons">
@@ -135,7 +171,7 @@
     <!-- our services -->
     <section id="services">
       <h1>Our Services</h1>
-      <p>
+      <p class="card-text">
         We offer competitive pricing tailored to your specific needs. Contact us
         for a detailed quote.
       </p>
@@ -176,7 +212,7 @@
     <!-- our projects -->
     <section id="projects">
       <h1>Our Projects</h1>
-      <p>Explore some of our completed electrical and energy projects.</p>
+      <p class="card-text">Explore some of our completed electrical and energy projects.</p>
 
       <div class="projects-slider">
         <!-- Card 1 -->
@@ -240,27 +276,28 @@
         </div>
       </div>
     </section>
-    <div>
+    
       <!-- Careers Section -->
-      <section id="careers" class="careers">
-        <h2>CAREERS AT ENAGOM Electrical</h2>
-        <p>
-          Join our growing team and help us deliver reliable energy solutions
-          across residential and commercial projects.
-        </p>
+      <section class="careers" id="careers">
+        <div>
+          <h1>Careers at ENAGOM electrical</h1>
+          <p class="card-text">
+            Join our growing team and help us deliver reliable energy solutions
+            across residential and commercial projects.
+          </p>
+        </div>
 
         <div class="career-cards">
           <div class="career-card">
             <h3>Electrical Technician</h3>
-            <img
-              src="assets/images/electrical technician.jpg"
+            <img src="assets/images/electrical technician.jpg"
               alt="Electrical Technician"
             />
             <p>
               Responsible for installations, troubleshooting, and maintenance of
               electrical systems.
             </p>
-            <button>Apply Now</button>
+            <button class="apply-btn">Apply Now</button>
           </div>
 
           <div class="career-card">
@@ -273,7 +310,7 @@
               Oversee projects from planning to execution while ensuring safety
               and efficiency.
             </p>
-            <button>Apply Now</button>
+            <button class="apply-btn">Apply Now</button>
           </div>
 
           <div class="career-card">
@@ -284,56 +321,80 @@
             />
             <p>
               Kickstart your electrical career with hands-on training and
-              mentorship from our trusted team .
+              mentorship from our trusted team.
             </p>
-            <button>Apply Now</button>
+            <button class="apply-btn">Apply Now</button>
           </div>
         </div>
       </section>
-    </div>
+    
 
     <!--testimonial section-->
-
     <section id="testimonials">
-      <div>
+      <div >
         <h1>Testimonials</h1>
-        <h3>Customer Testimonials Section</h3>
-        <!--first testimony-->
-        <div>
-          <h1>Mathew</h1>
+        <h3 class="card-text">Customer Testimonials Section</h3>
+        <div class="testimonials-container">
+           <!--first testimony-->
+        <div class="testimonial-card">
+          <h2>Mathew</h2>
           <img src="assets/images/mathew.jpg" alt="Customer Testimonial" />
           <p>
             "ENAGOM Electrical provided exceptional service. Their team was
             professional and completed the project on time."
           </p>
-          <span> &#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="stars"> &#9733;&#9733;&#9733;&#9733;&#9733;</span>
         </div>
 
         <!--second testimony-->
-        <div>
-          <h1>Shown</h1>
+        <div class="testimonial-card">
+          <h2>Shown</h2>
           <img src="assets/images/shown.jpg" alt="Customer Testimonial" />
           <p>"ENAGOM Electrical provided me with amazing service."</p>
-          <span> &#9733;&#9733;&#9733;&#9733;</span>
+          <span class="stars"> &#9733;&#9733;&#9733;&#9733;</span>
         </div>
 
         <!--third testimony-->
-        <div>
-          <h1>Thabo</h1>
+        <div class="testimonial-card">
+          <h2>Thabo</h2>
           <img src="assets/images/thabo.jpg" alt="Customer Testimonial" />
           <p>"ENAGOM Electrical provide good quality work."</p>
-          <span> &#9733;&#9733;&#9733;&#9733;</span>
+          <span class="stars"> &#9733;&#9733;&#9733;&#9733;</span>
         </div>
 
         <!--fouth testimony-->
-        <div>
-          <h1>Kamogelo</h1>
+        <div class="testimonial-card">
+          <h2>Kamogelo</h2>
           <img src="assets/images/kamogelo.jpg" alt="Customer Testimonial" />
           <p>"ENAGOM Electrical they provide good services"</p>
-          <span> &#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="stars"> &#9733;&#9733;&#9733;&#9733;&#9733;</span>
         </div>
+
+        </div>
+       
       </div>
     </section>
+
+    <!-- Hidden Application Form -->
+  <!-- <div class="career-form" id="careerForm">
+    <h2>Apply Now</h2>
+    <form>
+      <label for="c-name">Name:</label>
+      <input type="text" id="c-name" required>
+
+      <label for="c-email">Email:</label>
+      <input type="email" id="c-email" required>
+
+      <label for="c-message">Message:</label>
+      <textarea id="c-message" rows="4" required></textarea>
+
+      <div class="career-form-buttons">
+        <button type="submit">Submit</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+      </div>
+    </form>
+  </div> -->
+
 
     <!--contact section-->
     <section id="contact">
@@ -350,7 +411,7 @@
           </iframe>
         </div>
 
-        <!-- Form + Contact Details -->
+        
         <div>
           <!-- Contact Form -->
           <div class="contact-form">
