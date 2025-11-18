@@ -970,3 +970,32 @@ footer div:nth-child(3) a:hover i {
     flex: 0 0 250px;
   }
 }
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.85);
+  cursor: zoom-out;
+  padding: 20px;
+}
+
+.lightbox__img {
+  max-width: 95%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  object-fit: contain;
+}
+
+/* caption */
+.lightbox__caption {
+  color: #fff;
+  margin-top: 12px;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.95;
+}
