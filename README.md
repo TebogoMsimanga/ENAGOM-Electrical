@@ -132,3 +132,119 @@ W3C, 2023. Media Queries Level 4. [online] W3C. Available at: https://www.w3.org
 Mozilla Developer Network (MDN), 2025. Responsive design. [online] MDN Web Docs. Available at: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
  [Accessed 13 September 2025].
 
+Javascript Updates
+ENAGOM Electrical – Quickstart README
+
+A concise version of the full documentation. This one‑page README provides everything needed to understand, run, and modify the website.
+
+---
+
+🚀 Overview
+
+ENAGOM Electrical is a responsive, SEO‑friendly website built to showcase electrical services, brand partners, testimonials, and career opportunities. The site is structured with HTML5, styled using modern CSS (Flexbox, Grid, media queries), and enhanced with JavaScript for user interaction.
+
+
+ Core Features
+
+. Responsive layout (mobile‑first)
+. Smooth navigation using section IDs
+. Testimonials vertical scroll section
+. CSS-powered project flip cards
+. Careers apply‑form toggle (JS)
+. Contact form validation (JS)
+. Hero section with CTA button
+
+
+ Technologies Used
+
+* **HTML5** – page structure
+* **CSS3** – responsive design, animations, grid, flex
+* **JavaScript** – navigation controls, form validation, career form toggle
+
+---
+
+ JavaScript Features
+
+1. Hero Section Button
+
+Scrolls user to services section.
+
+```javascript
+document.getElementById("hero-btn").addEventListener("click", () => {
+  document.getElementById("services").scrollIntoView({ behavior: "smooth" });
+});
+```
+
+2. Navigation Menu Toggle (Mobile)
+
+```javascript
+const navToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector("nav ul");
+
+navToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+```
+
+3. Careers "Apply Now" Form Toggle
+
+```javascript
+const applyButtons = document.querySelectorAll(".apply-btn");
+const careersForm = document.getElementById("careers-form");
+const closeForm = document.getElementById("close-form");
+
+applyButtons.forEach(btn => {
+  btn.addEventListener("click", () => careersForm.classList.add("show"));
+});
+
+closeForm.addEventListener("click", () => {
+  careersForm.classList.remove("show"));
+});
+```
+
+4. Contact Form Validation
+
+```javascript
+const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", (e) => {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name || !email || !message) {
+    e.preventDefault();
+    alert("Please complete all required fields.");
+  }
+});
+```
+
+---
+
+How to Run
+
+1. Download or clone project folder
+2. Open **index.html** in any browser
+3. Ensure images & assets remain in correct folders
+
+No installation required.
+
+---
+
+ Notes
+
+. Ensure section IDs match navigation href values
+. All JavaScript placed in **script.js** and linked before `</body>`
+.CSS media queries improve layout at 1200px, 768px, 480px breakpoints
+
+
+
+ References (Harvard Style)
+
+Marcotte, E., 2011. *Responsive Web Design*. New York: A Book Apart.
+
+W3C, 2023. *Media Queries Level 4*. Available at: [https://www.w3.org/TR/mediaqueries-4/](https://www.w3.org/TR/mediaqueries-4/) (Accessed 13 September 2025).
+
+Mozilla Developer Network, 2025. *Responsive Design*. Available at: [https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design) (Accessed 13 September 2025).
+
+---
