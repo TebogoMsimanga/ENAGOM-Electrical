@@ -1,15 +1,5 @@
 /* javascripts/scripts.js
-   ENAGOM Electrical
-   - Mobile nav accessibility & behaviors
-   - Smooth scroll + focus management
-   - Hero CTA wiring (scroll to contact / open modal)
-   - Careers modal (dynamic) with validation + POST to /api/apply
-   - Contact form validation + POST to /api/contact
-   - Image lightbox (projects & testimonials)
-   - Active nav highlighting (IntersectionObserver)
-   - Back-to-top button
-   - Lazy images
-   - Accessibility improvements (focus, ARIA)
+   ENAGOM Electrical - Enhanced Version
 */
 
 (() => {
@@ -43,11 +33,13 @@
     initHeroCTA();
     initCareerModal();
     initContactForm();
+    initProjectCards();
     initLightbox();
     initActiveNavObserver();
     initBackToTop();
     lazySetImages();
     initEscapeClosers();
+    initScrollAnimations();
   }
 
   /* ---------------------------
@@ -71,7 +63,6 @@
       }
     }));
 
-    // close if clicking outside
     document.addEventListener("click", (e) => {
       if (!navToggle || !navToggle.checked) return;
       const inside = e.target.closest("header nav, .mobile-menu-toggle, #nav-toggle");
@@ -139,7 +130,6 @@
           }
         }
 
-        // fallback: open career modal if other job or not quote
         if (typeof window.__openCareerModal === "function") {
           window.__openCareerModal(btn.dataset.job || "Position", btn);
         } else {
@@ -154,12 +144,67 @@
     });
   }
 
+/* ---------------------------
+   Project Cards - Click to flip
+----------------------------*/
+function initProjectCards() {
+  const projectCards = qa(".project-card");
+  
+  projectCards.forEach(card => {
+    const frontImg = card.querySelector(".project-card-front img");
+    const backButton = card.querySelector(".back-button");
+    
+    // Click on card to flip
+    card.addEventListener("click", (e) => {
+      // Don't flip if clicking the back button or if already on back
+      if (e.target.closest(".back-button")) return;
+      if (e.target.closest(".project-card-back")) return;
+      
+      // Toggle flip
+      card.classList.toggle("flipped");
+    });
+    
+    // Back button to unflip
+    if (backButton) {
+      backButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        card.classList.remove("flipped");
+      });
+    }
+    
+    // Make front image clickable for lightbox when not flipped
+    if (frontImg) {
+      frontImg.style.cursor = "pointer";
+      frontImg.addEventListener("click", (e) => {
+        if (!card.classList.contains("flipped")) {
+          e.stopPropagation();
+          openLightbox(frontImg);
+        }
+      });
+    }
+    
+    // Keyboard support for accessibility
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (!card.classList.contains("flipped")) {
+          card.classList.add("flipped");
+        }
+      }
+      
+      if (e.key === "Escape" && card.classList.contains("flipped")) {
+        card.classList.remove("flipped");
+      }
+    });
+  });
+}
+
   /* ---------------------------
      Careers modal + validation + POST
   ----------------------------*/
   function initCareerModal() {
     const applyBtns = qa(".apply-btn");
-    window.__openCareerModal = openCareerModal; // expose for other calls
+    window.__openCareerModal = openCareerModal;
 
     applyBtns.forEach(btn => {
       btn.addEventListener("click", (e) => {
@@ -175,7 +220,7 @@
       const closeBtn = create("button", { class: "career-form-close", html: "&times;" });
       closeBtn.setAttribute("aria-label", "Close application");
 
-      const title = create("h2", { html: `Apply — ${jobTitle}` });
+      const title = create("h2", { html: `Apply – ${jobTitle}` });
       const form = create("form", { attrs: { "aria-live": "polite", novalidate: "novalidate" } });
       form.innerHTML = `
         <label for="c-name">Full name</label>
@@ -212,7 +257,6 @@
       document.body.appendChild(modal);
       document.body.style.overflow = "hidden";
 
-      // Styles for minimal layout (move to CSS later)
       modal.style.position = "fixed";
       modal.style.zIndex = "20000";
       modal.style.left = "50%";
@@ -224,13 +268,11 @@
       modal.style.maxWidth = "520px";
       modal.style.boxShadow = "0 12px 36px rgba(0,0,0,0.25)";
 
-      // focus
       const first = form.querySelector("input, textarea, button");
       if (first) first.focus();
 
       closeBtn.addEventListener("click", closeModal);
       q("#careerCancel", modal)?.addEventListener("click", closeModal);
-
       backdrop.addEventListener("click", closeModal);
 
       form.addEventListener("submit", (ev) => {
@@ -263,14 +305,12 @@
     }
 
     async function handleCareerSubmit(form) {
-      // Clear previous field errors
       qa(".field-error", form).forEach(el => { el.textContent = ""; el.setAttribute("aria-hidden", "true"); });
       const messageBox = q("#careerFormMessage", form);
       messageBox.textContent = "";
 
       const errors = validateCareerForm(form);
       if (Object.keys(errors).length) {
-        // show inline
         Object.entries(errors).forEach(([field, msg]) => {
           const errEl = form.querySelector(`.field-error[data-for="${field}"]`);
           if (errEl) {
@@ -283,7 +323,6 @@
         return;
       }
 
-      // Prepare payload
       const payload = {
         name: form.querySelector("#c-name").value.trim(),
         email: form.querySelector("#c-email").value.trim(),
@@ -292,7 +331,6 @@
         job: form.querySelector('input[name="job"]').value
       };
 
-      // POST to server endpoint; fallback if unavailable
       try {
         const res = await fetch("/api/apply", {
           method: "POST",
@@ -301,15 +339,13 @@
         });
         if (!res.ok) throw new Error(`Server responded ${res.status}`);
         const data = await res.json().catch(() => ({}));
-        q("#careerFormMessage", form).textContent = data.message || "Application submitted — thank you!";
+        q("#careerFormMessage", form).textContent = data.message || "Application submitted – thank you!";
         q("#careerFormMessage", form).style.color = "green";
         form.reset();
         setTimeout(() => {
-          // close modal by simulating ESC (a safe approach)
           document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
         }, 1200);
       } catch (err) {
-        // fallback fake success for development
         q("#careerFormMessage", form).textContent = "Application submitted (offline mode).";
         q("#careerFormMessage", form).style.color = "green";
         form.reset();
@@ -327,21 +363,20 @@
     const form = contactSection.querySelector("form");
     if (!form) return;
 
-    // Add aria-live region for messages if none
     let status = q(".contact-status", form);
     if (!status) {
       status = create("div", { class: "contact-status", attrs: { role: "status", "aria-live": "polite" } });
+      status.style.marginTop = "15px";
+      status.style.fontSize = "14px";
       form.appendChild(status);
     }
 
     form.setAttribute("novalidate", "novalidate");
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
-      // clear previous
       qa(".field-error", form).forEach(el => { el.textContent = ""; el.setAttribute("aria-hidden", "true"); });
       status.textContent = "";
 
-      // field references
       const nameInput = form.querySelector('input[name="name"], input[type="text"]');
       const emailInput = form.querySelector('input[type="email"], input[name="email"]');
       const messageInput = form.querySelector("textarea[name='message'], textarea");
@@ -358,7 +393,6 @@
       if (!values.message || values.message.length < 6) errors["message"] = "Message must be at least 6 characters.";
 
       if (Object.keys(errors).length) {
-        // show inline or create field-error elements
         Object.entries(errors).forEach(([k, v]) => {
           let field = form.querySelector(`[name="${k}"]`);
           if (!field) field = form.querySelector(`#${k}`);
@@ -377,7 +411,6 @@
         return;
       }
 
-      // submit to backend
       try {
         const res = await fetch("/api/contact", {
           method: "POST",
@@ -390,14 +423,12 @@
         status.style.color = "green";
         form.reset();
       } catch (err) {
-        // fallback behaviour
         status.textContent = "Message queued locally (no server).";
         status.style.color = "green";
         form.reset();
       }
     });
 
-    // Live validation on blur
     ["name", "email"].forEach((name) => {
       const field = form.querySelector(`[name="${name}"]`);
       if (!field) return;
@@ -423,28 +454,58 @@
      Lightbox for images
   ----------------------------*/
   function initLightbox() {
-    const imgs = qa("#projects img, #testimonials img, .gallery img");
+    const imgs = qa("#testimonials img");
     if (!imgs.length) return;
     imgs.forEach(img => {
       img.style.cursor = "zoom-in";
       img.setAttribute("tabindex", "0");
-      img.addEventListener("click", () => openLightbox(img));
-      img.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(img); } });
+      img.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openLightbox(img);
+      });
+      img.addEventListener("keydown", (e) => { 
+        if (e.key === "Enter" || e.key === " ") { 
+          e.preventDefault(); 
+          openLightbox(img); 
+        } 
+      });
     });
+  }
 
-    function openLightbox(img) {
-      const overlay = create("div", { class: "lightbox", attrs: { role: "dialog", "aria-modal": "true" } });
-      overlay.style.position = "fixed"; overlay.style.inset = "0"; overlay.style.display = "flex"; overlay.style.alignItems = "center"; overlay.style.justifyContent = "center"; overlay.style.zIndex = "99999"; overlay.style.background = "rgba(0,0,0,0.85)";
-      const big = create("img", { attrs: { src: img.src, alt: img.alt || "" }, class: "lightbox__img" });
-      big.style.maxWidth = "92%"; big.style.maxHeight = "92%"; big.style.boxShadow = "0 8px 30px rgba(0,0,0,0.5)";
-      overlay.appendChild(big);
-      document.body.appendChild(overlay);
-      document.body.style.overflow = "hidden";
+  function openLightbox(img) {
+    const overlay = create("div", { class: "lightbox", attrs: { role: "dialog", "aria-modal": "true" } });
+    overlay.style.position = "fixed"; 
+    overlay.style.inset = "0"; 
+    overlay.style.display = "flex"; 
+    overlay.style.alignItems = "center"; 
+    overlay.style.justifyContent = "center"; 
+    overlay.style.zIndex = "99999"; 
+    overlay.style.background = "rgba(0,0,0,0.9)";
+    
+    const big = create("img", { attrs: { src: img.src, alt: img.alt || "" }, class: "lightbox__img" });
+    big.style.maxWidth = "92%"; 
+    big.style.maxHeight = "92%"; 
+    big.style.boxShadow = "0 8px 30px rgba(0,0,0,0.5)";
+    
+    overlay.appendChild(big);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = "hidden";
 
-      const remove = () => { if (overlay.parentElement) overlay.parentElement.removeChild(overlay); document.body.style.overflow = ""; };
-      overlay.addEventListener("click", (ev) => { if (ev.target === overlay || ev.target === big) remove(); });
-      document.addEventListener("keydown", function onEsc(e) { if (e.key === "Escape") { remove(); document.removeEventListener("keydown", onEsc); }});
-    }
+    const remove = () => { 
+      if (overlay.parentElement) overlay.parentElement.removeChild(overlay); 
+      document.body.style.overflow = ""; 
+    };
+    
+    overlay.addEventListener("click", (ev) => { 
+      if (ev.target === overlay || ev.target === big) remove(); 
+    });
+    
+    document.addEventListener("keydown", function onEsc(e) { 
+      if (e.key === "Escape") { 
+        remove(); 
+        document.removeEventListener("keydown", onEsc); 
+      }
+    });
   }
 
   /* ---------------------------
@@ -455,7 +516,11 @@
     const navLinks = qa("#mainNav a");
     if (!sections.length || !navLinks.length) return;
     const idToLink = {};
-    navLinks.forEach(a => { const href = a.getAttribute("href"); if (href && href.startsWith("#")) idToLink[href.slice(1)] = a; });
+    navLinks.forEach(a => { 
+      const href = a.getAttribute("href"); 
+      if (href && href.startsWith("#")) idToLink[href.slice(1)] = a; 
+    });
+    
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         const id = e.target.id;
@@ -468,6 +533,7 @@
         }
       });
     }, { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+    
     sections.forEach(s => { if (s.id) obs.observe(s); });
   }
 
@@ -477,9 +543,24 @@
   function initBackToTop() {
     const btn = create("button", { class: "back-to-top", html: "↑" });
     btn.setAttribute("aria-label", "Back to top");
-    Object.assign(btn.style, { position: "fixed", right: "18px", bottom: "18px", display: "none", zIndex: "9999", width: "44px", height: "44px", borderRadius: "8px", border: "none", cursor: "pointer" });
+    Object.assign(btn.style, { 
+      position: "fixed", 
+      right: "18px", 
+      bottom: "18px", 
+      display: "none", 
+      zIndex: "9999", 
+      width: "44px", 
+      height: "44px", 
+      borderRadius: "50%", 
+      border: "none", 
+      cursor: "pointer" 
+    });
     document.body.appendChild(btn);
-    window.addEventListener("scroll", () => { btn.style.display = (window.scrollY > 400 ? "block" : "none"); }, { passive: true });
+    
+    window.addEventListener("scroll", () => { 
+      btn.style.display = (window.scrollY > 400 ? "block" : "none"); 
+    }, { passive: true });
+    
     btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
@@ -487,7 +568,9 @@
      Lazy images
   ----------------------------*/
   function lazySetImages() {
-    qa("img").forEach(img => { if (!img.hasAttribute("loading")) img.setAttribute("loading", "lazy"); });
+    qa("img").forEach(img => { 
+      if (!img.hasAttribute("loading")) img.setAttribute("loading", "lazy"); 
+    });
   }
 
   /* ---------------------------
@@ -498,6 +581,35 @@
       if (e.key !== "Escape") return;
       const navToggle = q("#nav-toggle");
       if (navToggle && navToggle.checked) navToggle.checked = false;
+      
+      // Close any flipped project cards
+      qa(".project-card.flipped").forEach(card => card.classList.remove("flipped"));
+    });
+  }
+
+  /* ---------------------------
+     Scroll animations
+  ----------------------------*/
+  function initScrollAnimations() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    }, observerOptions);
+
+    qa(".reason-card, .service-card, .career-card").forEach(el => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(30px)";
+      el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+      observer.observe(el);
     });
   }
 
@@ -516,12 +628,10 @@
   }
 
   function validateEmail(email) {
-    // conservative email regex (not overly strict)
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
   function validatePhone(phone) {
-    // accept numbers, spaces, +, -, parentheses
     return /^[\d+\-\s()]{7,20}$/.test(phone);
   }
 
